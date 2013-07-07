@@ -20,7 +20,7 @@
 	var center;
 
 	function initialize() {
-		mapOptions = {
+		var mapOptions = {
 			center: new google.maps.LatLng(-34.397, 150.644),
 			zoom: 8,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -30,8 +30,6 @@
 		geocoder = new google.maps.Geocoder();
 		bounds = new google.maps.LatLngBounds();
 	}
-
-	initialize();
 
 	function addMarkerToMap(location, address) {
 		var image = "img/baby-cupcake.png";
@@ -44,10 +42,12 @@
 		});
 	}
 
+	initialize();
+
 	$("address", parent.window.document).each(function() {
 		var $address = $(this);
 		geocoder.geocode({address: $address.text()}, function(results, status) {
-			if(status == google.maps.GeocoderStatus.OK) addMarkerToMap(results[0].geometry.location, $address.text())
+			if(status == google.maps.GeocoderStatus.OK) addMarkerToMap(results[0].geometry.location, $address.html())
 		});
 	})
 
